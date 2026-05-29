@@ -14,7 +14,7 @@
  *   <div data-cell2-map-wrapper data-cell2-id="SHEET_ID" data-cell2-sheet="Places">
  *     <div data-cell2-map style="height:480px"></div>
  *   </div>
- *   <script src="https://cdn.jsdelivr.net/gh/USER/cell2@v1.0.0/cell2-map.js"></script>
+ *   <script src="https://cdn.jsdelivr.net/gh/munsdev/cell2@v1.0.0/cell2-map.js"></script>
  *
  * Rows need latitude + longitude columns (default names: Latitude, Longitude).
  *

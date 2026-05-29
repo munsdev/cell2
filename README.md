@@ -16,11 +16,11 @@ Publish your sheet: **File → Share → Publish to web → Entire document → 
 Add whichever script(s) you need before `</body>`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/USER/cell2@v1.0.0/cell2-cms.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/USER/cell2@v1.0.0/cell2-map.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/munsdev/cell2@v1.0.0/cell2-cms.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/munsdev/cell2@v1.0.0/cell2-map.js"></script>
 ```
 
-Replace `USER` with your GitHub username and pin to a tag (`@v1.0.0`) for stability, or use `@latest` to float.
+Replace `munsdev` with your GitHub username and pin to a tag (`@v1.0.0`) for stability, or use `@latest` to float.
 
 ## Minimal list
 

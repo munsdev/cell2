@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cell2 — Map</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .controls { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .controls input, .controls select, .controls button {
+      padding: 8px 10px; border: 1px solid #ccc; border-radius: 8px; font: inherit;
+    }
+    .count { color: #888; font-size: 14px; margin-bottom: 8px; }
+    .popup h4 { margin: 0 0 4px; }
+    .popup p { margin: 0; color: #555; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Map</h1>
+
+  <div data-cell2-map-wrapper
+       data-cell2-id="YOUR_SHEET_ID"
+       data-cell2-sheet="Places"
+       data-cell2-col-lat="Latitude"
+       data-cell2-col-lng="Longitude"
+       data-cell2-col-name="Name">
+
+    <div class="controls">
+      <input type="text" placeholder="Search…" data-cell2-map-search>
+      <select data-cell2-map-filter="Category"><option value="">All categories</option></select>
+      <button data-cell2-map-reset>Reset</button>
+      <button data-cell2-map-locate>Near me</button>
+    </div>
+
+    <p class="count"><span data-cell2-count>0</span> locations</p>
+
+    <!-- the map renders here; a CSS height is required -->
+    <div data-cell2-map
+         data-cell2-map-tiles="carto-light"
+         data-cell2-map-center="20,0"
+         data-cell2-map-zoom="3"
+         style="height:520px; border-radius:12px; overflow:hidden;"></div>
+
+    <!-- popup template — cloned and filled per marker -->
+    <div class="popup" data-cell2-map-card>
+      <h4 data-cell2-field="Name"></h4>
+      <div data-cell2-field-wrapper>
+        <p data-cell2-field="Description"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../cell2-map.js"></script>
+</body>
+</html>

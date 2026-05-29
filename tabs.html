@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cell2 — Tabs</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 20px; }
+    .tab-menu { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #e2e2e2; }
+    .tab-link { padding: 10px 16px; cursor: pointer; border-bottom: 2px solid transparent; }
+    .tab-link.w--current { border-bottom-color: #111; font-weight: 600; }
+    .tab-count { color: #999; font-size: 13px; margin-left: 4px; }
+    .item { padding: 16px; border: 1px solid #e2e2e2; border-radius: 10px; margin-bottom: 12px; }
+    .item h3 { margin: 0 0 4px; }
+    .item p { margin: 0; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Heritage Sites</h1>
+
+  <!--
+    Tabs are driven by a tab named "_config" in the sheet. Each row there
+    becomes a tab (or an aggregate tab if Tab holds a comma-separated list).
+    The link and content templates below are cloned per tab.
+  -->
+  <div data-cell2-tabs data-cell2-id="YOUR_SHEET_ID" data-cell2-config="_config">
+
+    <div class="tab-menu">
+      <!-- tab link template -->
+      <a class="tab-link" data-cell2-tab-link>
+        <span data-cell2-meta="tab-title"></span>
+        <span class="tab-count" data-cell2-tab-count></span>
+      </a>
+    </div>
+
+    <div class="tab-content">
+      <!-- tab content template -->
+      <div data-cell2-tab-content>
+        <div data-cell2-list>
+          <div class="item" data-cell2-item>
+            <h3 data-cell2-field="Name"></h3>
+            <p data-cell2-field="Description"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../cell2-cms.js"></script>
+</body>
+</html>

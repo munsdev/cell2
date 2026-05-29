@@ -294,7 +294,7 @@
 
   function csvUrl(sheetId, sheetName) {
     return 'https://docs.google.com/spreadsheets/d/' + sheetId +
-      '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(sheetName);
+      '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheetName);
   }
 
   function parseCSV(text) {

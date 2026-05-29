@@ -1,5 +1,5 @@
 /**
- * cell2-map.js  v1.0.0
+ * cell2-map.js  v1.0.1
  * Cell2 — Google Sheets → Leaflet Map
  * https://cell2.site
  *
@@ -14,7 +14,7 @@
  *   <div data-cell2-map-wrapper data-cell2-id="SHEET_ID" data-cell2-sheet="Places">
  *     <div data-cell2-map style="height:480px"></div>
  *   </div>
- *   <script src="https://cdn.jsdelivr.net/gh/munsdev/cell2@v1.0.0/cell2-map.js"></script>
+ *   <script src="https://cdn.jsdelivr.net/gh/USER/cell2@v1.0.0/cell2-map.js"></script>
  *
  * Rows need latitude + longitude columns (default names: Latitude, Longitude).
  *
@@ -75,6 +75,8 @@
  *   data-cell2-field-attr="src:Column" → sets attribute
  *   data-cell2-field-wrapper           removed if child field blank
  *   data-cell2-show-if="Column"        removed if value falsy
+ *   data-cell2-meta="tab-label"        source tab's config Label (per record)
+ *   data-cell2-meta="tab-name"         source tab's raw sheet name (per record)
  *   data-cell2-var="name:Column"       CSS var from row / config / global
  *
  * ═══════════════════════════════════════════════════════════════════════════
@@ -421,6 +423,15 @@
     cardEl.querySelectorAll('[data-cell2-show-if]').forEach(function (el) {
       var key = el.getAttribute('data-cell2-show-if');
       if (!isTruthy(record[key])) el.remove();
+    });
+
+    // meta — source tab name / label for this record (matches the CMS side)
+    var tabName  = record._tab || '';
+    var tabLabel = (individualConfigRow && individualConfigRow.label) || tabName;
+    cardEl.querySelectorAll('[data-cell2-meta]').forEach(function (el) {
+      var meta = el.getAttribute('data-cell2-meta');
+      if (meta === 'tab-label') el.textContent = tabLabel;
+      else if (meta === 'tab-name') el.textContent = tabName;
     });
 
     cardEl.querySelectorAll('[data-cell2-var]').forEach(function (el) {

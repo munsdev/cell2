@@ -12,7 +12,7 @@
  *
  * 1. Publish your sheet:  File → Share → Publish to web → entire doc → CSV
  * 2. Add this script to your page (footer / before </body>):
- *      <script src="https://cdn.jsdelivr.net/gh/USER/cell2@v1.0.0/cell2-cms.js"></script>
+ *      <script src="https://cdn.jsdelivr.net/gh/munsdev/cell2@v1.0.0/cell2-cms.js"></script>
  * 3. Mark up a list:
  *      <div data-cell2-list data-cell2-id="SHEET_ID" data-cell2-sheet="Tab Name">
  *        <div data-cell2-item>

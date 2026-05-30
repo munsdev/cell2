@@ -1,5 +1,5 @@
 /**
- * cell2-cms.js  v1.0.0
+ * cell2-cms.js  v1.0.2
  * Cell2 — Google Sheets → Webflow CMS Lists, Tabs, Aggregate Tabs
  * https://cell2.site
  *
@@ -12,7 +12,7 @@
  *
  * 1. Publish your sheet:  File → Share → Publish to web → entire doc → CSV
  * 2. Add this script to your page (footer / before </body>):
- *      <script src="https://cdn.jsdelivr.net/gh/USER/cell2@v1.0.0/cell2-cms.js"></script>
+ *      <script src="https://cdn.jsdelivr.net/gh/munsdev/cell2@v1.0.2/cell2-cms.js"></script>
  * 3. Mark up a list:
  *      <div data-cell2-list data-cell2-id="SHEET_ID" data-cell2-sheet="Tab Name">
  *        <div data-cell2-item>
@@ -130,6 +130,8 @@
  * NOTES
  * ═══════════════════════════════════════════════════════════════════════════
  *  • Sheet must be published to the web (CSV)
+ *  • Do NOT make _config the first tab in the workbook — Google's CSV export
+ *    mangles the first tab's header row. Keep _config anywhere but first.
  *  • Column names are case-sensitive, must match the header row exactly
  *  • All-blank rows are skipped
  *  • Append ?clearcache to any URL to wipe cached data
@@ -264,7 +266,7 @@
 
   function csvUrl(sheetId, sheetName) {
     return 'https://docs.google.com/spreadsheets/d/' + sheetId +
-      '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheetName);
+      '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(sheetName);
   }
 
   function parseList(attr) {

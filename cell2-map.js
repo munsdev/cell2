@@ -1,5 +1,5 @@
 /**
- * cell2-map.js  v1.0.1
+ * cell2-map.js  v1.0.2
  * Cell2 — Google Sheets → Leaflet Map
  * https://cell2.site
  *
@@ -14,7 +14,7 @@
  *   <div data-cell2-map-wrapper data-cell2-id="SHEET_ID" data-cell2-sheet="Places">
  *     <div data-cell2-map style="height:480px"></div>
  *   </div>
- *   <script src="https://cdn.jsdelivr.net/gh/USER/cell2@v1.0.0/cell2-map.js"></script>
+ *   <script src="https://cdn.jsdelivr.net/gh/munsdev/cell2@v1.0.2/cell2-map.js"></script>
  *
  * Rows need latitude + longitude columns (default names: Latitude, Longitude).
  *
@@ -110,6 +110,8 @@
  * NOTES
  * ═══════════════════════════════════════════════════════════════════════════
  *  • Sheet must be published to the web (CSV)
+ *  • Do NOT make _config the first tab in the workbook — Google's CSV export
+ *    mangles the first tab's header row. Keep _config anywhere but first.
  *  • Lat/lng must be decimals; invalid rows are skipped
  *  • Multiple map wrappers per page are supported
  *  • Append ?clearcache to any URL to wipe cached data
@@ -294,7 +296,7 @@
 
   function csvUrl(sheetId, sheetName) {
     return 'https://docs.google.com/spreadsheets/d/' + sheetId +
-      '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheetName);
+      '/gviz/tq?tqx=out:csv&sheet=' + encodeURIComponent(sheetName);
   }
 
   function parseCSV(text) {

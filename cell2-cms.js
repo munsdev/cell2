@@ -1,5 +1,5 @@
 /**
- * cell2-cms.js  v1.0.2
+ * cell2-cms.js  v1.0.3
  * Cell2 — Google Sheets → Webflow CMS Lists, Tabs, Aggregate Tabs
  * https://cell2.site
  *
@@ -78,6 +78,9 @@
  *   data-cell2-meta="tab-label"          source tab Label (falls back to title)
  *   data-cell2-meta="tab-description"    config Description
  *   data-cell2-tab-count                 record count for that tab
+ *   data-cell2-tab-field="Col"           any _config column → textContent
+ *   data-cell2-tab-field-attr="attr:Col" any _config column → attribute (e.g. src:Image)
+ *   data-cell2-tab-field-html="Col"      any _config column → innerHTML
  *
  * Tab content template (inside .w-tab-content):
  *   data-cell2-tab-content               cloned per tab
@@ -645,6 +648,39 @@
     activate(activeIndex);
   }
 
+  // Fill tab-field elements from this tab's _config row.
+  //   data-cell2-tab-field="Col"          → textContent from config column
+  //   data-cell2-tab-field-attr="attr:Col" → attribute from config column
+  //   data-cell2-tab-field-html="Col"      → innerHTML from config column
+  function populateTabFields(rootEl, tabDef) {
+    var row = (tabDef && tabDef._row) ? tabDef._row : {};
+
+    rootEl.querySelectorAll('[data-cell2-tab-field]').forEach(function (el) {
+      var col = el.getAttribute('data-cell2-tab-field');
+      var val = col && row[col] !== undefined ? row[col] : '';
+      if (val) el.textContent = val;
+      else removeWrapperOrClear(el, rootEl, function () { el.textContent = ''; });
+    });
+
+    rootEl.querySelectorAll('[data-cell2-tab-field-html]').forEach(function (el) {
+      var col = el.getAttribute('data-cell2-tab-field-html');
+      var val = col && row[col] !== undefined ? row[col] : '';
+      if (val) el.innerHTML = val;
+      else removeWrapperOrClear(el, rootEl, function () { el.innerHTML = ''; });
+    });
+
+    rootEl.querySelectorAll('[data-cell2-tab-field-attr]').forEach(function (el) {
+      var spec = el.getAttribute('data-cell2-tab-field-attr');
+      var idx  = spec.indexOf(':');
+      if (idx === -1) return;
+      var attr = spec.slice(0, idx).trim();
+      var col  = spec.slice(idx + 1).trim();
+      var val  = col && row[col] !== undefined ? row[col] : '';
+      if (val) el.setAttribute(attr, val);
+      else removeWrapperOrClear(el, rootEl, function () { el.removeAttribute(attr); });
+    });
+  }
+
   function insertTab(tabDef, records, ctx) {
     var tabId = uid();
     var label = tabDef.label || tabDef.tab;
@@ -666,6 +702,7 @@
     link.querySelectorAll('[data-cell2-tab-count]').forEach(function (el) {
       el.textContent = records.length;
     });
+    populateTabFields(link, tabDef);
 
     if (link.hasAttribute('data-cell2-var')) resolveVars(link, null, tabDef, ctx.globalVars);
     link.querySelectorAll('[data-cell2-var]').forEach(function (el) {
@@ -689,6 +726,7 @@
       if (meta === 'tab-label')       el.textContent = label;
       if (meta === 'tab-description') el.textContent = tabDef.description || '';
     });
+    populateTabFields(pane, tabDef);
 
     if (pane.hasAttribute('data-cell2-var')) resolveVars(pane, null, tabDef, ctx.globalVars);
     pane.querySelectorAll('[data-cell2-var]').forEach(function (el) {
